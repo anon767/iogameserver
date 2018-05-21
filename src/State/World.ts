@@ -1,5 +1,4 @@
 import Matter = require('matter-js');
-import {GameObject} from "../Domain/Entities/GameObject";
 import {Entity} from "../Domain/Entities/Entity";
 
 

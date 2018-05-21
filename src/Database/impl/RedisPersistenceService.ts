@@ -30,4 +30,5 @@ export class RedisPersistenceService implements PersistenceService {
         this.redisDatabase.getAllBy(prefix + "_*", callBack);
     }
 
+
 }

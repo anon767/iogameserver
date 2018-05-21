@@ -41,6 +41,11 @@ class RedisDBTest {
         });
     }
 
+    @test pubsubTest(){
+
+
+    }
+
     after() {
         this.redisInstance.close();
     }
