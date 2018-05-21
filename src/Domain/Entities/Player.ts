@@ -1,4 +1,5 @@
 import {GameObject} from "./GameObject";
+import {PLAYER_TYPE} from "./Types";
 
 const PLAYER_WIDTH: number = 50;
 const PLAYER_HEIGHT: number = 50;
@@ -8,12 +9,13 @@ export class Player extends GameObject {
     public angle: number;
     public name: string;
 
-    constructor(socket, x, y, name) {
-        super(x, y, PLAYER_WIDTH, PLAYER_HEIGHT, true);
+    constructor(id: number, socket, x, y, name) {
+        super(id, x, y, PLAYER_WIDTH, PLAYER_HEIGHT);
         this.x = x;
         this.name = name;
         this.y = y;
         this.socket = socket;
+        this.type = PLAYER_TYPE;
     }
 
     public move(x: number, y: number) {

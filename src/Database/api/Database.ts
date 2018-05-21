@@ -1,9 +1,11 @@
 interface Database {
-    create(object: any);
+    create(id: any, object: any);
 
-    read(object: any, callBack: any);
+    read(id: any, callBack: any);
 
-    update(object: any);
+    update(id: any, object: any);
 
-    delete(object: any);
+    delete(id: any);
+
+    getAllBy(key: any, callBack: any);
 }

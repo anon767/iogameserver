@@ -1,5 +1,6 @@
 import Matter = require('matter-js');
 import {GameObject} from "../Domain/Entities/GameObject";
+import {Entity} from "../Domain/Entities/Entity";
 
 
 export class World {
@@ -8,12 +9,14 @@ export class World {
 
     constructor() {
         this.engine = Matter.Engine.create();
+        this.engine.enableSleeping = true;
         this.runner = Matter.Runner.create();
     }
 
-    public addObject(gameObject: GameObject) {
-        let object = Matter.Bodies.rectangle(gameObject.x, gameObject.y, gameObject.width, gameObject.height);
+    public addObject(entity: Entity) {
+        let object = Matter.Bodies.rectangle(entity.x, entity.y, entity.width, entity.height);
         Matter.World.add(this.engine.world, object);
+        return object;
     }
 
     public removeObject(id) {
@@ -21,9 +24,7 @@ export class World {
     }
 
     public tick(fps: number) {
-
         Matter.Runner.tick(this.runner, this.engine, 1000 / fps);
-
     }
 
 }

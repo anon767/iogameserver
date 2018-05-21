@@ -1,16 +1,16 @@
-export class GameObject {
-    public id: number;
-    public x: number;
-    public y: number;
-    public width: number;
-    public height: number;
-    public updatable: boolean
+import {Entity} from "./Entity";
+import {GAMEOBJECT_TYPE} from "./Types";
 
-    constructor(x, y, w, h, updatable) {
+export class GameObject extends Entity {
+
+    public type: number = GAMEOBJECT_TYPE;
+
+    constructor(id, x, y, w, h) {
+        super();
         this.x = x;
         this.y = y;
         this.width = w;
         this.height = h;
-        this.updatable = updatable;
+        this.id = id;
     }
 }

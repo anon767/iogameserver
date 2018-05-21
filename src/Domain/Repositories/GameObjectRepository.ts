@@ -1,27 +1,28 @@
 import {GameObject} from "../Entities/GameObject";
+import {GAMEOBJECT_TYPE} from "../Entities/Types";
 
 export class GameObjectRepository {
 
-    private persistenceService: PersistenceService<GameObject> = null;
+    private persistenceService: PersistenceService = null;
 
-    constructor(persistenceService: PersistenceService<GameObject>) {
+    constructor(persistenceService: PersistenceService) {
         this.persistenceService = persistenceService;
     }
 
-    public save(gameObject: GameObject): number {
-        return this.persistenceService.save(gameObject);
+    public save(gameObject: GameObject) {
+        this.persistenceService.save(gameObject);
     }
 
     public deleteByID(id: number) {
-        this.persistenceService.deleteByID(id);
+        this.persistenceService.deleteByID(id, GAMEOBJECT_TYPE);
     }
 
     public deleteBy(gameObject: GameObject) {
         this.persistenceService.deleteBy(gameObject);
     }
 
-    public getAll(): Object[] {
-        return this.persistenceService.getAll();
+    public getAll(callBack) {
+        return this.persistenceService.getAll(callBack, GAMEOBJECT_TYPE);
     }
 
 }

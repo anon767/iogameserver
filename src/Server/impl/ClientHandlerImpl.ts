@@ -1,5 +1,5 @@
 import {EventBus} from "../EventBus";
-import {RequestSchema, ResponseSchema, ServerSchema} from "../../Domain/Messages";
+import {RequestSchema, ResponseSchema, ServerSchema} from "../../Domain/ServerSchema";
 import {GameObject} from "../../Domain/Entities/GameObject";
 import {Player} from "../../Domain/Entities/Player";
 
@@ -44,16 +44,9 @@ export class ClientHandlerImpl implements ClientHandler {
             socket.close();
         }
 
-        let update = {
-            playerName: "Mario",
-            x: 200,
-            y: 100,
-            angle: 30,
-            move: true,
-            shoot: false
-        };
 
-        socket.send(ServerSchema.encode(update
+
+        socket.send(ServerSchema.encode(null
             , ResponseSchema), {binary: true});
     }
 

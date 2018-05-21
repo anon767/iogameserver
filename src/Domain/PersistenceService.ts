@@ -1,11 +1,11 @@
-interface PersistenceService<T> {
-    getById(id: number): T;
+interface PersistenceService {
+    getById(id: number, callBack: any, prefix: any | null): void;
 
-    save(object: T): number;
+    save(object: any): void;
 
-    deleteBy(object: T);
+    deleteBy(object: any): void;
 
-    deleteByID(id: number);
+    deleteByID(id: number, prefix: any | null): void;
 
-    getAll(): T[];
+    getAll(callBack: any, prefix: any | null): void;
 }

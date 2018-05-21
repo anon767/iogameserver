@@ -13,6 +13,8 @@ server.listen();
 const FPS: number = 50;
 const RATE: number = 1000 / FPS;
 
+
+
 function handle() {
     world.tick(FPS);
     sleep.msleep(RATE);
