@@ -1,0 +1,26 @@
+{
+  "name": "iogameserver",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run tsc && mocha ./dist/test",
+    "tsc": "tsc",
+    "start": "npm run tsc && nodejs ./dist/index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^10.1.2",
+    "matter-js": "^0.14.1",
+    "redis": "^2.8.0",
+    "sleep": "^5.1.1",
+    "uuws": "^0.7.1"
+  },
+  "devDependencies": {
+    "mocha": "^5.2.0",
+    "mocha-typescript": "^1.1.14",
+    "tsc": "^1.20150623.0",
+    "typescript": "^2.6.2"
+  }
+}
