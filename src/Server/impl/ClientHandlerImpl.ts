@@ -2,48 +2,58 @@ import {EventBus} from "../EventBus";
 import {RequestSchema, ResponseSchema, ServerSchema} from "../../Domain/ServerSchema";
 import {GameObject} from "../../Domain/Entities/GameObject";
 import {Player} from "../../Domain/Entities/Player";
+import {PLAYERDISCONNECT, PLAYERJOINED, UPDATEWORLD} from "../Events";
 
 export class ClientHandlerImpl implements ClientHandler {
     private eventBus: EventBus;
+    private playerList: Player[] = [];
+    private myID = 0;
+
+    static generateUID() {
+        return parseInt((Math.random() * 1000).toString());
+    }
 
     constructor(eventBus: EventBus) {
         this.eventBus = eventBus;
         this.eventBus.on(UPDATEWORLD, this.updateClients)
+        this.myID = ClientHandlerImpl.generateUID();
     }
 
     public updateClients(gameObjects: GameObject[], players: Player[]) {
 
     }
 
-    public close(socket){
-
-    }
 
     public static parseMessage(message: number) {
         try {
             return ServerSchema.decode(message, RequestSchema);
-        } catch(Exception) {
+        } catch (Exception) {
             return null;
         }
     }
 
+
+    public close(player) {
+        this.playerList[player.id - this.myID] = null;
+        delete this.playerList[player.id - this.myID];
+        player.socket.removeListener("message");
+        player.socket.removeListener("close");
+        player.socket.close();
+        this.eventBus.emit(PLAYERDISCONNECT, player);
+    }
+
     public connected(global, socket) {
-        let handle = this.handle;
-        let close = this.close;
+        let player = new Player(this.myID + this.playerList.length, socket, 0, 0, "");
+        this.eventBus.emit(PLAYERJOINED, player);
         socket.on('message', function (message) {
-            handle(global, socket, message);
+            player.handleCommand(global, ClientHandlerImpl.parseMessage(message));
         });
         socket.on('close', function () {
-            close(socket);
-        })
+            this.close(player);
+        });
     }
 
     public handle(global, socket, message) {
-        let parsedMessage = ClientHandlerImpl.parseMessage(message);
-        if (!parsedMessage) {
-            socket.close();
-        }
-
 
 
         socket.send(ServerSchema.encode(null

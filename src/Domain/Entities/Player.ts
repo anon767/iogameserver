@@ -5,7 +5,7 @@ const PLAYER_WIDTH: number = 50;
 const PLAYER_HEIGHT: number = 50;
 
 export class Player extends GameObject {
-    public socket;
+    private socket;
     public angle: number;
     public name: string;
 
@@ -16,6 +16,11 @@ export class Player extends GameObject {
         this.y = y;
         this.socket = socket;
         this.type = PLAYER_TYPE;
+
+    }
+
+    public handleCommand(globalSocket, message) {
+
     }
 
     public move(x: number, y: number) {

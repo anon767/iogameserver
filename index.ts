@@ -3,16 +3,18 @@ import {EventBus} from "./src/Server/EventBus";
 import {ClientHandlerImpl} from "./src/Server/impl/ClientHandlerImpl";
 import {World} from "./src/State/World";
 import sleep = require('sleep');
+import {StateSyncer} from "./src/State/StateSyncer";
 
 const eventBus = new EventBus();
 const clientHandler = new ClientHandlerImpl(eventBus);
 const server = new Server(8080, clientHandler);
 const world = new World();
+const stateSyncer = new StateSyncer(eventBus);
+
 server.listen();
 
 const FPS: number = 50;
 const RATE: number = 1000 / FPS;
-
 
 
 function handle() {
