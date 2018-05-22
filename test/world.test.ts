@@ -15,6 +15,6 @@ class MochaTest {
         let tom: Player = new Player(0, null, 0, 0, "Tom");
         let matterObject = this.world.addObject(tom);
         this.world.tick(60);
-        assert.notEqual(matterObject.position.y, 0);
+        assert.notEqual(matterObject.position.y, 0,"object should fall down");
     }
 }
