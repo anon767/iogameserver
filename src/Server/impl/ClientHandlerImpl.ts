@@ -1,7 +1,7 @@
 import {RequestSchema, ResponseSchema, ServerSchema} from "../../Domain/ServerSchema";
 import {GameObject} from "../../Domain/Entities/GameObject";
 import {Player} from "../../Domain/Entities/Player";
-import {PLAYERDISCONNECT, PLAYERJOINED, UPDATEWORLD} from "../Events";
+import {PLAYERDISCONNECT, PLAYERJOINED,} from "../Events";
 
 export class ClientHandlerImpl implements ClientHandler {
     private eventBus;
@@ -14,7 +14,7 @@ export class ClientHandlerImpl implements ClientHandler {
 
     constructor(eventBus) {
         this.eventBus = eventBus;
-        this.eventBus.on(UPDATEWORLD, this.updateClients);
+        //    this.eventBus.on(UPDATEWORLD, this.updateClients);
         this.myID = ClientHandlerImpl.generateUID();
     }
 
