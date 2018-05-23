@@ -18,8 +18,8 @@ export class World {
         return object;
     }
 
-    public removeObject(id) {
-        Matter.World.remove(this.engine.world, id);
+    public removeObject(entity: Entity) {
+        Matter.World.remove(this.engine.world, entity.id);
     }
 
     public tick(fps: number) {

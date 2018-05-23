@@ -1,11 +1,10 @@
-import {EventBus} from "../EventBus";
 import {RequestSchema, ResponseSchema, ServerSchema} from "../../Domain/ServerSchema";
 import {GameObject} from "../../Domain/Entities/GameObject";
 import {Player} from "../../Domain/Entities/Player";
 import {PLAYERDISCONNECT, PLAYERJOINED, UPDATEWORLD} from "../Events";
 
 export class ClientHandlerImpl implements ClientHandler {
-    private eventBus: EventBus;
+    private eventBus;
     private playerList: Player[] = [];
     private myID = 0;
 
@@ -13,9 +12,9 @@ export class ClientHandlerImpl implements ClientHandler {
         return parseInt((Math.random() * 1000).toString());
     }
 
-    constructor(eventBus: EventBus) {
+    constructor(eventBus) {
         this.eventBus = eventBus;
-        this.eventBus.on(UPDATEWORLD, this.updateClients)
+        this.eventBus.on(UPDATEWORLD, this.updateClients);
         this.myID = ClientHandlerImpl.generateUID();
     }
 
@@ -36,8 +35,7 @@ export class ClientHandlerImpl implements ClientHandler {
     public close(player) {
         this.playerList[player.id - this.myID] = null;
         delete this.playerList[player.id - this.myID];
-        player.socket.removeListener("message");
-        player.socket.removeListener("close");
+        player.socket.removeAllListeners();
         player.socket.close();
         this.eventBus.emit(PLAYERDISCONNECT, player);
     }

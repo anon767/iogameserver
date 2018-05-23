@@ -1,15 +1,15 @@
 import {Server} from './src/Server/Server';
-import {EventBus} from "./src/Server/EventBus";
 import {ClientHandlerImpl} from "./src/Server/impl/ClientHandlerImpl";
 import {World} from "./src/State/World";
 import sleep = require('sleep');
 import {StateSyncer} from "./src/State/StateSyncer";
+import {PubSubFactory} from "./src/Database/impl/PubSubFactory";
 
-const eventBus = new EventBus();
+const eventBus = PubSubFactory.getInstance().getBus();
 const clientHandler = new ClientHandlerImpl(eventBus);
 const server = new Server(8080, clientHandler);
 const world = new World();
-const stateSyncer = new StateSyncer(eventBus);
+const stateSyncer = new StateSyncer(eventBus, world);
 
 server.listen();
 
